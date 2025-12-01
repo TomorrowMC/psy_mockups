@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halo Effect in AI Virtual Instructors - Psychology Experiment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="container fade-in">
+            <div class="header-animation">
+                <div class="ai-icon">🤖</div>
+                <div class="sparkles">
+                    <span class="sparkle">✨</span>
+                    <span class="sparkle">✨</span>
+                    <span class="sparkle">✨</span>
+                </div>
+            </div>
+            <h1 class="title">The Halo Effect in AI Virtual Instructors</h1>
+            <p class="subtitle">A Psychology Experiment</p>
+
+            <div class="info-box slide-up">
+                <h2>About This Study</h2>
+                <p>This experiment investigates whether the classic <strong>halo effect</strong> applies to AI-generated virtual instructors.</p>
+                <p class="highlight">The halo effect occurs when our overall impression of someone influences how we perceive their specific traits.</p>
+            </div>
+
+            <div class="study-details slide-up delay-1">
+                <div class="detail-card">
+                    <div class="icon">⏱️</div>
+                    <h3>Duration</h3>
+                    <p>5-7 minutes</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">📹</div>
+                    <h3>Task</h3>
+                    <p>Watch AI instructor video</p>
+                </div>
+                <div class="detail-card">
+                    <div class="icon">📝</div>
+                    <h3>Rate</h3>
+                    <p>Instructor attributes</p>
+                </div>
+            </div>
+
+            <div class="consent-box slide-up delay-2">
+                <h3>Participant Consent</h3>
+                <p>By participating, you agree that:</p>
+                <ul>
+                    <li>Your responses will be used for research purposes</li>
+                    <li>All data will be anonymized</li>
+                    <li>You can withdraw at any time</li>
+                </ul>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="consent-check">
+                    <span class="checkmark"></span>
+                    <span class="label-text">I consent to participate in this study</span>
+                </label>
+            </div>
+
+            <button id="start-btn" class="btn primary pulse" disabled>Begin Experiment</button>
+
+            <div class="footer">
+                <p class="small-text">Research Team: Yadong Hou, Yifei Hu, Zhihao Mo</p>
+                <p class="small-text">Based on Nisbett & Wilson (1977)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demographics Screen -->
+    <div id="demographics-screen" class="screen">
+        <div class="container fade-in">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%"></div>
+            </div>
+
+            <h2>Participant Information</h2>
+            <p class="instruction">Please provide some basic information:</p>
+
+            <form id="demographics-form" class="form-container">
+                <div class="form-group">
+                    <label for="participant-id">Participant ID (optional):</label>
+                    <input type="text" id="participant-id" placeholder="Leave blank for anonymous">
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" min="18" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" required>
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ai-familiarity">How familiar are you with AI technologies?</label>
+                    <select id="ai-familiarity" required>
+                        <option value="">Select...</option>
+                        <option value="1">Not familiar at all</option>
+                        <option value="2">Slightly familiar</option>
+                        <option value="3">Moderately familiar</option>
+                        <option value="4">Very familiar</option>
+                        <option value="5">Expert level</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn primary">Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Screen -->
+    <div id="video-screen" class="screen">
+        <div class="container fade-in">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 40%"></div>
+            </div>
+
+            <h2>Watch the AI Instructor</h2>
+            <p class="instruction">Please watch the following video carefully. You will be asked to evaluate the instructor afterward.</p>
+
+            <div class="video-container">
+                <div id="video-placeholder" class="video-placeholder">
+                    <div class="video-icon">🎬</div>
+                    <p class="video-label" id="condition-label">AI Virtual Instructor</p>
+                    <div class="play-button" id="play-button">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="rgba(99, 102, 241, 0.9)"/>
+                            <polygon points="40,30 40,70 70,50" fill="white"/>
+                        </svg>
+                    </div>
+                    <p class="video-hint">Click to play video</p>
+
+                    <!-- Simulated video content -->
+                    <div id="video-simulation" class="video-simulation hidden">
+                        <div class="ai-avatar" id="ai-avatar">
+                            <div class="avatar-face">
+                                <div class="eyes">
+                                    <div class="eye left"></div>
+                                    <div class="eye right"></div>
+                                </div>
+                                <div class="mouth" id="avatar-mouth"></div>
+                            </div>
+                        </div>
+                        <div class="subtitle-box">
+                            <p id="subtitle-text">Welcome to Introduction to Psychology...</p>
+                        </div>
+                        <div class="video-controls">
+                            <div class="timeline">
+                                <div class="timeline-progress" id="timeline-progress"></div>
+                            </div>
+                            <span class="time-display" id="time-display">0:00 / 0:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="continue-to-rating" class="btn primary" disabled>Continue to Evaluation</button>
+        </div>
+    </div>
+
+    <!-- Rating Screen -->
+    <div id="rating-screen" class="screen">
+        <div class="container fade-in">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+
+            <h2>Evaluate the AI Instructor</h2>
+            <p class="instruction">Based on the video you just watched, please rate the following attributes:</p>
+
+            <form id="rating-form" class="rating-container">
+                <!-- Overall Likability -->
+                <div class="rating-group">
+                    <label class="rating-label">Overall Likability</label>
+                    <p class="rating-description">How much did you like this instructor overall?</p>
+                    <div class="scale-container">
+                        <span class="scale-label">Dislike Extremely</span>
+                        <div class="scale">
+                            <input type="radio" name="likability" value="1" id="lik1" required>
+                            <label for="lik1">1</label>
+                            <input type="radio" name="likability" value="2" id="lik2">
+                            <label for="lik2">2</label>
+                            <input type="radio" name="likability" value="3" id="lik3">
+                            <label for="lik3">3</label>
+                            <input type="radio" name="likability" value="4" id="lik4">
+                            <label for="lik4">4</label>
+                            <input type="radio" name="likability" value="5" id="lik5">
+                            <label for="lik5">5</label>
+                            <input type="radio" name="likability" value="6" id="lik6">
+                            <label for="lik6">6</label>
+                            <input type="radio" name="likability" value="7" id="lik7">
+                            <label for="lik7">7</label>
+                            <input type="radio" name="likability" value="8" id="lik8">
+                            <label for="lik8">8</label>
+                        </div>
+                        <span class="scale-label">Like Extremely</span>
+                    </div>
+                </div>
+
+                <!-- Visual Design -->
+                <div class="rating-group">
+                    <label class="rating-label">Visual Design / Appearance</label>
+                    <p class="rating-description">How appealing was the avatar's visual design?</p>
+                    <div class="scale-container">
+                        <span class="scale-label">Extremely Irritating</span>
+                        <div class="scale">
+                            <input type="radio" name="visual" value="1" id="vis1" required>
+                            <label for="vis1">1</label>
+                            <input type="radio" name="visual" value="2" id="vis2">
+                            <label for="vis2">2</label>
+                            <input type="radio" name="visual" value="3" id="vis3">
+                            <label for="vis3">3</label>
+                            <input type="radio" name="visual" value="4" id="vis4">
+                            <label for="vis4">4</label>
+                            <input type="radio" name="visual" value="5" id="vis5">
+                            <label for="vis5">5</label>
+                            <input type="radio" name="visual" value="6" id="vis6">
+                            <label for="vis6">6</label>
+                            <input type="radio" name="visual" value="7" id="vis7">
+                            <label for="vis7">7</label>
+                            <input type="radio" name="visual" value="8" id="vis8">
+                            <label for="vis8">8</label>
+                        </div>
+                        <span class="scale-label">Extremely Appealing</span>
+                    </div>
+                </div>
+
+                <!-- Mannerisms -->
+                <div class="rating-group">
+                    <label class="rating-label">Mannerisms / Animations</label>
+                    <p class="rating-description">How appealing were the avatar's movements and gestures?</p>
+                    <div class="scale-container">
+                        <span class="scale-label">Extremely Irritating</span>
+                        <div class="scale">
+                            <input type="radio" name="mannerisms" value="1" id="man1" required>
+                            <label for="man1">1</label>
+                            <input type="radio" name="mannerisms" value="2" id="man2">
+                            <label for="man2">2</label>
+                            <input type="radio" name="mannerisms" value="3" id="man3">
+                            <label for="man3">3</label>
+                            <input type="radio" name="mannerisms" value="4" id="man4">
+                            <label for="man4">4</label>
+                            <input type="radio" name="mannerisms" value="5" id="man5">
+                            <label for="man5">5</label>
+                            <input type="radio" name="mannerisms" value="6" id="man6">
+                            <label for="man6">6</label>
+                            <input type="radio" name="mannerisms" value="7" id="man7">
+                            <label for="man7">7</label>
+                            <input type="radio" name="mannerisms" value="8" id="man8">
+                            <label for="man8">8</label>
+                        </div>
+                        <span class="scale-label">Extremely Appealing</span>
+                    </div>
+                </div>
+
+                <!-- Voice -->
+                <div class="rating-group">
+                    <label class="rating-label">Voice / Vocal Tone</label>
+                    <p class="rating-description">How pleasant was the instructor's voice?</p>
+                    <div class="scale-container">
+                        <span class="scale-label">Extremely Irritating</span>
+                        <div class="scale">
+                            <input type="radio" name="voice" value="1" id="voi1" required>
+                            <label for="voi1">1</label>
+                            <input type="radio" name="voice" value="2" id="voi2">
+                            <label for="voi2">2</label>
+                            <input type="radio" name="voice" value="3" id="voi3">
+                            <label for="voi3">3</label>
+                            <input type="radio" name="voice" value="4" id="voi4">
+                            <label for="voi4">4</label>
+                            <input type="radio" name="voice" value="5" id="voi5">
+                            <label for="voi5">5</label>
+                            <input type="radio" name="voice" value="6" id="voi6">
+                            <label for="voi6">6</label>
+                            <input type="radio" name="voice" value="7" id="voi7">
+                            <label for="voi7">7</label>
+                            <input type="radio" name="voice" value="8" id="voi8">
+                            <label for="voi8">8</label>
+                        </div>
+                        <span class="scale-label">Extremely Appealing</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn primary">Submit Ratings</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Awareness Questions Screen -->
+    <div id="awareness-screen" class="screen">
+        <div class="container fade-in">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%"></div>
+            </div>
+
+            <h2>Reflection Questions</h2>
+            <p class="instruction">Finally, we'd like to understand your thought process:</p>
+
+            <form id="awareness-form" class="form-container">
+                <div class="form-group">
+                    <label for="influence-question">Do you think your overall impression of the instructor influenced how you rated specific attributes (appearance, mannerisms, voice)?</label>
+                    <select id="influence-question" required>
+                        <option value="">Select...</option>
+                        <option value="yes-strong">Yes, it strongly influenced my ratings</option>
+                        <option value="yes-somewhat">Yes, it somewhat influenced my ratings</option>
+                        <option value="maybe">Maybe, I'm not sure</option>
+                        <option value="no">No, I rated each attribute independently</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="awareness-text">Please explain your reasoning:</label>
+                    <textarea id="awareness-text" rows="4" placeholder="What made you rate the attributes the way you did?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="noticed-condition">Did you notice anything particular about the instructor's demeanor or behavior?</label>
+                    <textarea id="noticed-condition" rows="3" placeholder="Describe what you observed..."></textarea>
+                </div>
+
+                <button type="submit" class="btn primary">Complete Study</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thank You Screen -->
+    <div id="thankyou-screen" class="screen">
+        <div class="container fade-in">
+            <div class="success-animation">
+                <div class="checkmark">✓</div>
+            </div>
+
+            <h1 class="title">Thank You for Participating!</h1>
+
+            <div class="debrief-box">
+                <h2>Study Debrief</h2>
+                <p>This experiment investigated the <strong>halo effect</strong> with AI-generated virtual instructors.</p>
+
+                <div class="reveal-box">
+                    <h3>What We Were Testing:</h3>
+                    <p>You were randomly assigned to watch one of two versions of the same AI instructor:</p>
+                    <ul>
+                        <li><strong>Warm condition:</strong> Friendly, enthusiastic demeanor</li>
+                        <li><strong>Cold condition:</strong> Neutral, distant demeanor</li>
+                    </ul>
+                    <p class="condition-reveal">You watched the <strong id="condition-reveal"></strong> version.</p>
+                </div>
+
+                <div class="explanation-box">
+                    <h3>The Halo Effect:</h3>
+                    <p>Research shows that our overall impression of someone (whether we like them) can unconsciously influence how we perceive their specific traits—even objective ones like appearance or voice quality.</p>
+                    <p>This study extends the classic 1977 research by Nisbett & Wilson to AI-generated agents, exploring whether humans exhibit similar biases toward virtual instructors.</p>
+                </div>
+
+                <div class="data-summary">
+                    <h3>Your Responses:</h3>
+                    <div id="response-summary" class="summary-grid"></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="download-btn" class="btn secondary">Download My Data</button>
+                <button id="restart-btn" class="btn primary">Start New Session</button>
+            </div>
+
+            <div class="footer">
+                <p class="small-text">If you have questions about this study, please contact the research team.</p>
+                <p class="small-text">Research Team: Yadong Hou (yh2278), Yifei Hu (yh2277), Zhihao Mo (zm329)</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

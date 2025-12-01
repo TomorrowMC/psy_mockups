@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-12-01T04:23:40.302Z",
+  "condition": "cold",
+  "ratings": {
+    "instructor_likability": 6,
+    "instructor_voice": 4,
+    "instructor_mannerisms": 5,
+    "platform_ui": 4,
+    "platform_usability": 6,
+    "platform_features": 4,
+    "ai_intelligence": 3,
+    "ai_trust": 5
+  },
+  "notes": ""
+}
